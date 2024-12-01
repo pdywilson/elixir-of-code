@@ -21,3 +21,33 @@ result = Enum.zip(left, right)
   |> Enum.map(fn {a, b} -> abs(a - b) end)
   |> Enum.sum()
 IO.inspect(result)
+
+defmodule Similarity do
+  def calculate_sim_score(left, right) do
+    Enum.reduce(0..length(left) - 1, 0, fn i, simScore ->
+      x = Enum.reduce(0..length(right) - 1, 0, fn j, acc ->
+        if Enum.at(left, i) == Enum.at(right, j) do
+          acc + 1
+        else
+          acc
+        end
+      end)
+      y = x * Enum.at(left, i)
+      simScore + y
+    end)
+  end
+end
+
+simScore = Similarity.calculate_sim_score(left, right)
+
+IO.inspect(simScore)
+
+
+
+
+
+
+
+
+
+
